@@ -309,7 +309,7 @@ switch(input){
     cube.y[i][0] = cube.temp[i][0];
   }
 
-    //rotate the positions of the yellow face
+    //rotate the positions of the orange face
     for(int i=0; i<3; i++){
       for(int j=0; j<3; j++){
         cube.temp[i][j] = cube.o[i][j];
@@ -340,7 +340,7 @@ switch(input){
     cube.y[2][i] = cube.o[i][2];
   }
   for(int i = 0; i<3; i++){
-    cube.temp1[0][i] = cube.r[0][i];
+    cube.temp1[0][i] = cube.r[i][0];
   }
   for(int i = 0; i<3; i++){
     cube.r[i][0] = cube.temp[2][i];
@@ -383,13 +383,13 @@ cube.printCube();
     cube.temp[0][i] = cube.y[0][i];
   }
   for(int i = 0; i<3; i++){
-    cube.y[0][i] = cube.o[i][0];
+    cube.y[0][i] = cube.r[i][2];
   }
   for(int i = 0; i<3; i++){
-    cube.temp1[2][i] = cube.r[2][i];
+    cube.temp1[2][i] = cube.o[i][0];
   }
   for(int i = 0; i<3; i++){
-    cube.r[i][2] = cube.temp[0][i];
+    cube.o[i][0] = cube.temp[0][i];
   }
   for(int i = 0; i<3; i++){
     cube.temp[2][i] = cube.w[2][i];
@@ -399,7 +399,7 @@ cube.printCube();
   }
   
   for(int i = 0; i<3; i++){
-    cube.o[i][0] = cube.temp[2][i];
+    cube.r[i][2] = cube.temp[2][i];
   }
 
   //rotate the positions of the green face
