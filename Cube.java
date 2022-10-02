@@ -137,6 +137,11 @@ for(int j=0; j<3; j++){
 cube.initializeCube();
 cube.printCube();
 
+boolean argsCheck = false;
+if(args.length >0){
+  argsCheck = true;
+}
+int argsRunIndex = 0;
 
 BufferedReader reader = new BufferedReader(
   new InputStreamReader(System.in));
@@ -147,7 +152,18 @@ String input;
 //Double check the array values for the sides that are being rotated, some are opposite others
 
 while(proceed){
-  input = reader.readLine();
+  
+  if(!argsCheck){
+    input = reader.readLine();
+  }else{
+    if(argsRunIndex == args.length){
+      argsCheck = false;
+      input = reader.readLine();
+    }else{
+      input = args[argsRunIndex];
+      argsRunIndex++;
+    }
+  }
 switch(input){
   case "u":
   //rotate the upper section of the cube clockwise, yellow facing up
@@ -191,7 +207,6 @@ switch(input){
 
  
 
-  cube.printCube();
   break;
 
 //counterclockwise rotation for the upper side, yellow facing up
@@ -236,7 +251,6 @@ cube.y[2][2] = cube.temp[2][0];
 
 
 
-cube.printCube();
 break;
 
 
@@ -282,7 +296,6 @@ break;
    
 
 
-  cube.printCube();
 
   break;
 
@@ -328,7 +341,6 @@ cube.w[2][2] = cube.temp[2][0];
 
 
 
-cube.printCube();
 break;
 
   case "r":
@@ -373,7 +385,6 @@ break;
    
  
 
-  cube.printCube();
   break;
 
 //rotates the right facing side counterclockwise, red facing right
@@ -419,7 +430,6 @@ for(int i = 0; i<3; i++){
  
 
 
-cube.printCube();
 break;
 
 
@@ -465,7 +475,6 @@ break;
    
  
 
-  cube.printCube();
 
   break;
 
@@ -512,7 +521,6 @@ break;
    
  
 
-  cube.printCube();
 
   break;
 
@@ -558,7 +566,6 @@ break;
 
  
 
-cube.printCube();
 
   break;
 
@@ -605,7 +612,6 @@ cube.printCube();
 
  
 
-cube.printCube();
 
   break;
 
@@ -651,7 +657,6 @@ cube.printCube();
 
  
 
-cube.printCube();
 
   break;
 
@@ -697,7 +702,6 @@ cube.printCube();
 
  
 
-cube.printCube();
 
   break;
 
