@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.util.ArrayList;
 
 public class Cube {
 char r[][] =new char[3][3];
@@ -122,7 +122,49 @@ for(int j=0; j<3; j++){
     }
   }
 
+  ArrayList<String> solution = new ArrayList<String>();
 
+
+    // check to see if the cube is solved be comparing each peice to the center peice on the same side
+  public boolean isSolved(){
+    return isSolved(r) && isSolved(b) && isSolved(o) && isSolved(g) && isSolved(y);
+  }
+    public boolean isSolved(char[][] face){
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+            if(face[i][j] != face[1][1]){
+                return false;
+            }
+            }
+        }
+        return true;
+    }
+    // add the opposite move as the last one made to the beginning of the solution, this also clears the entire solutino if the cube is solved
+    // or if two moves immediately cancel out it will remove the last move from the solution instead of adding a new one.
+    public void addToSolution(String move){
+        if(isSolved()){
+            solution.clear();
+        }else if(!solution.isEmpty() && solution.get(0).equals(move)){
+            solution.remove(0);
+        }else{
+            if(move.length() == 1){
+                solution.add(0,move+"'");
+            }else{
+                solution.add(0,move.substring(0,1));
+            }
+        }
+    }
+    public void printSolution(){
+        System.out.print("Solution: ");
+        if(isSolved()){
+            System.out.print("Solved");
+        }else{
+            for(String s : solution){
+                System.out.print(s + " ");
+            }
+            System.out.println("Moves to solve " + solution.size());
+        }
+      }
 
 	public static void main(final String[] args) throws IOException{
 
@@ -135,13 +177,14 @@ for(int j=0; j<3; j++){
     
 
 cube.initializeCube();
-cube.printCube();
 
 boolean argsCheck = false;
 if(args.length >0){
   argsCheck = true;
 }
 int argsRunIndex = 0;
+
+if(!argsCheck)cube.printCube();
 
 BufferedReader reader = new BufferedReader(
   new InputStreamReader(System.in));
@@ -158,12 +201,16 @@ while(proceed){
   }else{
     if(argsRunIndex == args.length){
       argsCheck = false;
-      input = reader.readLine();
+      cube.printCube();
+      cube.printSolution();
+      input = "q";
+      proceed = false;
     }else{
       input = args[argsRunIndex];
       argsRunIndex++;
     }
   }
+  boolean valid = true;
 switch(input){
   case "u":
   //rotate the upper section of the cube clockwise, yellow facing up
@@ -205,7 +252,8 @@ switch(input){
   cube.y[2][1] = cube.temp[1][2];
   cube.y[2][2] = cube.temp[0][2];
 
- 
+
+
 
   break;
 
@@ -293,8 +341,6 @@ break;
     cube.w[2][1] = cube.temp[1][2];
     cube.w[2][2] = cube.temp[0][2];
   
-   
-
 
 
   break;
@@ -340,7 +386,6 @@ cube.w[2][1] = cube.temp[1][0];
 cube.w[2][2] = cube.temp[2][0];
 
 
-
 break;
 
   case "r":
@@ -381,9 +426,7 @@ break;
     cube.r[2][0] = cube.temp[2][2];
     cube.r[2][1] = cube.temp[1][2];
     cube.r[2][2] = cube.temp[0][2];
-  
-   
- 
+
 
   break;
 
@@ -426,8 +469,6 @@ for(int i = 0; i<3; i++){
   cube.r[2][0] = cube.temp[0][0];
   cube.r[2][1] = cube.temp[1][0];
   cube.r[2][2] = cube.temp[2][0];
-
- 
 
 
 break;
@@ -472,8 +513,6 @@ break;
     cube.o[2][1] = cube.temp[1][2];
     cube.o[2][2] = cube.temp[0][2];
   
-   
- 
 
 
   break;
@@ -518,9 +557,6 @@ break;
     cube.o[2][1] = cube.temp[1][0];
     cube.o[2][2] = cube.temp[2][0];
   
-   
- 
-
 
   break;
 
@@ -563,9 +599,6 @@ break;
   cube.b[2][0] = cube.temp[2][2];
   cube.b[2][1] = cube.temp[1][2];
   cube.b[2][2] = cube.temp[0][2];
-
- 
-
 
   break;
 
@@ -610,8 +643,6 @@ break;
   cube.b[2][1] = cube.temp[1][0];
   cube.b[2][2] = cube.temp[2][0];
 
- 
-
 
   break;
 
@@ -655,9 +686,6 @@ break;
   cube.g[2][1] = cube.temp[1][2];
   cube.g[2][2] = cube.temp[0][2];
 
- 
-
-
   break;
 
   case "b'":
@@ -700,17 +728,27 @@ break;
   cube.g[2][1] = cube.temp[1][0];
   cube.g[2][2] = cube.temp[2][0];
 
- 
-
-
   break;
-
 
   case "q":
   //quits the program
   proceed= false;
+  valid = false;
+  break;
+
+  default:
+  System.out.println("Please Enter a valid move");
+  valid = false;
   break;
   }
-}
+  if(valid){
+    cube.addToSolution(input);
+    if(!argsCheck){
+        cube.printCube();
+        cube.printSolution();
+    }
   }
+
+}
+}
 }
