@@ -3,6 +3,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+// Feedback
+//  Looks and works well! I like the return telling the user that the cube is solved and I like how you always output moves to solve. 
+//  And that you clear the solve commands after every solve so you wouldn't have a solve command that looks like u' u' u' u' u' u' u'.
+//  Has good code separation and allows good readability but could potantially make better use of function / class separation.
+// 
+// On the whole looks great!
+// 
+
+
 public class Cube {
 char r[][] =new char[3][3];
 char b[][] =new char[3][3];
@@ -12,7 +21,7 @@ char y[][] =new char[3][3];
 char w[][] =new char[3][3];
 
 char temp[][] = new char[3][3];
-char temp1[][] = new char[3][3];
+char temp1[][] = new char[3][3];//maybe name temp2 or something
 
 public void initializeCube(){
 
